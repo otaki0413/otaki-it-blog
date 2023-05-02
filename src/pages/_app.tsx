@@ -1,10 +1,16 @@
 import "src/styles/globals.css";
-import type { AppProps } from "next/app";
+import type { CustomAppPage } from "next/app";
 import Link from "next/link";
 import { MantineProvider } from "@mantine/core";
 import Head from "next/head";
 
-const App = ({ Component, pageProps }: AppProps) => {
+const App: CustomAppPage = ({ Component, pageProps }) => {
+  const getLayout =
+    Component.getLayout ||
+    ((page) => {
+      return page;
+    });
+
   return (
     <>
       <Head>
@@ -23,13 +29,8 @@ const App = ({ Component, pageProps }: AppProps) => {
         }}
       >
         <div className="mx-auto max-w-prose">
-          <header className="border-b border-gray-300 py-8">
-            <Link href="/">
-              <a className="text-5xl font-bold">おたきのITブログ</a>
-            </Link>
-          </header>
           <main className="mt-8">
-            <Component {...pageProps} />
+            {getLayout(<Component {...pageProps} />)}
           </main>
         </div>
       </MantineProvider>
