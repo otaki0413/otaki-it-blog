@@ -1,80 +1,20 @@
-import type { GetStaticProps, NextPage } from "next";
-import Link from "next/link";
-import { MicroCMSListResponse } from "microcms-js-sdk";
-import { ComponentProps, useState } from "react";
+import type { CustomNextPage, GetStaticProps } from "next";
 import { client } from "src/libs/client";
+import { Layout } from "src/pages-layout";
+import { Index } from "src/pages-component/index";
+import { Blog, Props } from "src/pages-component/index/page";
 
-export type Blog = {
-  title: string;
-  body: string;
+const IndexPage: CustomNextPage<Props> = (props) => {
+  return <Index {...props} />;
 };
 
-type Props = MicroCMSListResponse<Blog>;
-
-// ブログ一覧画面
-const Home: NextPage<Props> = (props) => {
-  const [search, setSearch] = useState<MicroCMSListResponse<Blog>>();
-
-  // 検索ボタン押下時
-  const handleSubmit: ComponentProps<"form">["onSubmit"] = async (e) => {
-    e.preventDefault();
-    const q = e.currentTarget.query.value;
-    const data = await fetch("/api/search", {
-      method: "POST",
-      headers: { "Content-type": "application/json" },
-      body: JSON.stringify({ q }),
-    });
-    const json: MicroCMSListResponse<Blog> = await data.json();
-    setSearch(json);
-  };
-
-  // リセットボタン押下時
-  const handleClick: ComponentProps<"button">["onClick"] = () => {
-    setSearch(undefined);
-  };
-
-  const contents = search ? search.contents : props.contents;
-  const totalCount = search ? search.totalCount : props.totalCount;
-
-  return (
-    <div>
-      <form className="flex gap-x-2" onSubmit={handleSubmit}>
-        <input type="text" name="query" className="border border-black px-2" />
-        <button className="border border-black px-2">検索</button>
-        <button
-          type="reset"
-          className="border border-black px-2"
-          onClick={handleClick}
-        >
-          リセット
-        </button>
-      </form>
-      <p className="mt-4 text-gray-400">
-        {`${search ? "検索結果" : "記事の総数"}: ${totalCount}件`}
-      </p>
-      <ul className="mt-4 space-y-4">
-        {contents.map((content) => {
-          return (
-            <li
-              key={content.id}
-              className="text-3xl text-blue-800 underline hover:text-blue-400"
-            >
-              <Link href={`/blog/${content.id}`}>{content.title}</Link>
-            </li>
-          );
-        })}
-      </ul>
-    </div>
-  );
-};
+IndexPage.getLayout = Layout;
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
-  const data = await client.getList({
-    endpoint: "blog",
-  });
+  const data = await client.getList<Blog>({ endpoint: "blog" });
   return {
     props: data,
   };
 };
 
-export default Home;
+export default IndexPage;
