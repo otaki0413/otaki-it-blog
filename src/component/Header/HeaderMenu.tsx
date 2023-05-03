@@ -4,7 +4,7 @@ import { Header, Container, createStyles } from "@mantine/core";
 import { ColorSchemaToggle } from "src/component/Button";
 import { IconBrandReact } from "@tabler/icons-react";
 
-const useStyles = createStyles((thema) => ({
+const useStyles = createStyles((theme) => ({
   header: {
     display: "flex",
     justifyContent: "space-between",
@@ -12,9 +12,9 @@ const useStyles = createStyles((thema) => ({
     width: "100%",
     height: "100%",
     backgroundColor:
-      thema.colorScheme === "dark"
-        ? thema.colors.dark[6]
-        : thema.colors.gray[0],
+      theme.colorScheme === "dark"
+        ? theme.colors.dark[6]
+        : theme.colors.gray[0],
   },
 }));
 
