@@ -1,8 +1,12 @@
 import "src/styles/globals.css";
 import type { CustomAppPage } from "next/app";
-import Link from "next/link";
-import { MantineProvider } from "@mantine/core";
+import {
+  ColorScheme,
+  ColorSchemeProvider,
+  MantineProvider,
+} from "@mantine/core";
 import Head from "next/head";
+import { useState } from "react";
 
 const App: CustomAppPage = ({ Component, pageProps }) => {
   const getLayout =
@@ -10,6 +14,10 @@ const App: CustomAppPage = ({ Component, pageProps }) => {
     ((page) => {
       return page;
     });
+
+  const [colorScheme, setColorScheme] = useState<ColorScheme>("light");
+  const toggleColorScheme = (value?: ColorScheme) =>
+    setColorScheme(value || (colorScheme === "dark" ? "light" : "dark"));
 
   return (
     <>
@@ -20,20 +28,21 @@ const App: CustomAppPage = ({ Component, pageProps }) => {
           content="minimum-scale=1, initial-scale=1, width=device-width"
         />
       </Head>
-      <MantineProvider
-        withGlobalStyles
-        withNormalizeCSS
-        theme={{
-          /** Put your mantine theme override here */
-          colorScheme: "light",
-        }}
+      <ColorSchemeProvider
+        colorScheme={colorScheme}
+        toggleColorScheme={toggleColorScheme}
       >
-        <div className="mx-auto max-w-prose">
-          <main className="mt-8">
-            {getLayout(<Component {...pageProps} />)}
-          </main>
-        </div>
-      </MantineProvider>
+        <MantineProvider
+          withGlobalStyles
+          withNormalizeCSS
+          theme={{
+            fontFamily: "monospace",
+            colorScheme,
+          }}
+        >
+          {getLayout(<Component {...pageProps} />)}
+        </MantineProvider>
+      </ColorSchemeProvider>
     </>
   );
 };
