@@ -14,7 +14,7 @@
     "@mantine/form": "^6.0.10",
     "@mantine/hooks": "^6.0.10",
     "@mantine/next": "^6.0.10",
-    "@tabler/icons": "^2.17.0",
+    "@tabler/icons-react": "^2.17.0",
     "dayjs": "^1.11.7",
     "microcms-js-sdk": "^2.3.2",
     "next": "latest",
