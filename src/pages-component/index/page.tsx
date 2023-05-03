@@ -2,6 +2,7 @@ import { MicroCMSListResponse } from "microcms-js-sdk";
 import { NextPage } from "next";
 import Link from "next/link";
 import { ComponentProps, useState } from "react";
+import { Footer } from "src/component/Footer";
 import { HeaderMenu } from "src/component/Header";
 
 export type Blog = {
@@ -65,6 +66,7 @@ export const Index: NextPage<Props> = (props) => {
           );
         })}
       </ul>
+      <Footer />
     </div>
   );
 };
