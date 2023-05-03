@@ -2,8 +2,6 @@ import { MicroCMSListResponse } from "microcms-js-sdk";
 import { NextPage } from "next";
 import Link from "next/link";
 import { ComponentProps, useState } from "react";
-import { Footer } from "src/component/Footer";
-import { HeaderMenu } from "src/component/Header";
 
 export type Blog = {
   title: string;
@@ -39,7 +37,6 @@ export const Index: NextPage<Props> = (props) => {
 
   return (
     <div>
-      <HeaderMenu />
       <form className="flex gap-x-2" onSubmit={handleSubmit}>
         <input type="text" name="query" className="border border-black px-2" />
         <button className="border border-black px-2">検索</button>
@@ -66,7 +63,6 @@ export const Index: NextPage<Props> = (props) => {
           );
         })}
       </ul>
-      <Footer />
     </div>
   );
 };
