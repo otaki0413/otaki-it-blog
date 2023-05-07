@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 import { MicroCMSContentId, MicroCMSDate } from "microcms-js-sdk";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { client } from "src/libs/client";
-import { Blog } from "src/pages";
+import { Blog } from "src/pages-component/index/page";
 
 type Props = Blog & MicroCMSContentId & MicroCMSDate;
 
