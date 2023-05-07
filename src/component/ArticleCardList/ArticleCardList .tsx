@@ -1,4 +1,5 @@
 import { FC } from "react";
+import Link from "next/link";
 import {
   createStyles,
   SimpleGrid,
@@ -28,6 +29,7 @@ const useStyles = createStyles((theme) => ({
     border: `1px solid ${
       theme.colorScheme === "dark" ? theme.colors.dark[4] : theme.colors.gray[3]
     }`,
+    cursor: "pointer",
   },
 }));
 
@@ -40,32 +42,26 @@ export const ArticleCardList: FC<Props> = (props) => {
   const { classes } = useStyles();
 
   const cards = props.articles.map((article) => (
-    <Card
-      key={article.title}
-      p="lg"
-      radius="md"
-      component="a"
-      href="#"
-      className={classes.card}
-      miw={300}
-    >
-      <AspectRatio ratio={1920 / 1080}>
-        <Image src={article.image.url} alt="article_image" />
-      </AspectRatio>
-      <Text color="dimmed" size="xs" weight={700} mt="md">
-        {dayjs(article.publishedAt).format("YYYY年MM月DD日")}
-      </Text>
-      <Badge color="cyan" variant="dot">
-        {article.category.name}
-      </Badge>
-      <Text className="font-bold" mt={5}>
-        {article.title}
-      </Text>
-    </Card>
+    <Link key={article.title} href={`/blog/${article.id}`} passHref>
+      <Card p="lg" radius="md" className={classes.card} miw={280}>
+        <AspectRatio ratio={1920 / 1080}>
+          <Image src={article.image.url} alt="article_image" />
+        </AspectRatio>
+        <Text color="dimmed" size="xs" weight={700} mt="md">
+          {dayjs(article.publishedAt).format("YYYY年MM月DD日")}
+        </Text>
+        <Badge color="cyan" variant="dot">
+          {article.category.name}
+        </Badge>
+        <Text className="font-bold" mt={5}>
+          {article.title}
+        </Text>
+      </Card>
+    </Link>
   ));
 
   return (
-    <Container py="xl">
+    <Container py="xl" className="w-full">
       <SimpleGrid
         cols={3}
         spacing="lg"
