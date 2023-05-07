@@ -7,7 +7,7 @@ export const Layout: CustomLayout = (page) => {
   return (
     <div className="flex min-h-screen flex-col">
       <HeaderMenu />
-      <main className="flex flex-1 justify-center pt-10">{page}</main>
+      <main className="flex flex-1 justify-center py-10">{page}</main>
       <Footer />
     </div>
   );

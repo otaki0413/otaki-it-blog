@@ -27,7 +27,9 @@ export const HeaderMenu: FC = () => {
         <Link href="/" passHref>
           <div className="flex cursor-pointer items-center gap-2">
             <IconBrandReact color="cyan" />
-            <span className="color block text-xl">おたきのITブログ</span>
+            <span className="block text-xl font-semibold">
+              おたきのITブログ
+            </span>
           </div>
         </Link>
         <ColorSchemaToggle />
